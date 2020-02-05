@@ -22,8 +22,8 @@ def binary_classification_metrics(prediction, ground_truth):
 
     tp = np.sum(prediction & ground_truth)
     fn = np.sum(prediction & np.logical_not(ground_truth))
-    fp = np.sum(np.logical_not(prediction) & ground_truth)
-    tn = np.sum(np.logical_not(prediction) & np.logical_not(ground_truth))
+    fp = np.sum(~prediction & ground_truth)
+    tn = np.sum(~prediction & ~ground_truth)
     print(f"                       TN: {tn} FP: {fp} FN: {fn} TP: {tp}")
 
     precision = tp / (tp + fp)
@@ -55,4 +55,4 @@ def multiclass_accuracy(prediction, ground_truth):
     accuracy - ratio of accurate predictions to total samples
     '''
     # TODO: Implement computing accuracy
-    return 0
+    return sum(np.equal(prediction, ground_truth)) / prediction.shape[0]
